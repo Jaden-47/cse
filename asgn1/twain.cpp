@@ -63,7 +63,10 @@ int main(int argc, char **argv)
             output << findone->data <<" "<< findone->cnt << endl;
         }
     }
-
+    for (int i = 0; i < 26; i++)
+    {
+        word_list[i].deleteList();
+    }
     input.close();
     output.close();
 }

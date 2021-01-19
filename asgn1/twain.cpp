@@ -61,7 +61,7 @@ int main(int argc, char **argv)
             output << findone->data <<" "<< findone->cnt << endl;
         }
     }
-    output << word_list[23].print()<<endl;
+
     input.close();
     output.close();
 }

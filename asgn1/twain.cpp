@@ -29,17 +29,19 @@ int main(int argc, char **argv)
     // read in the words in the twain
     while (getline(text, word)) // get next line of input, store as a word
     {
-        if (word[0] < 97 || word[0] > 122)
+        int first = word[0]-97;
+        if (first < 0 || first > 25)
         {
             continue;
         }
-        if (word_list[word[0] - 97].find(word))
+        Node *findWord = word_list[first].find(word);
+        if (findWord)
         {
-            word_list[word[0] - 97].find(word)->cnt++;
+            findWord->cnt++;
         }
         else
         {
-            word_list[word[0] - 97].insert(word);
+            word_list[first].insert(word);
         }
     }
 

@@ -41,12 +41,15 @@ Node *LinkedList ::find(string val)
 // Technically, it finds the first Node in the list containing val
 Node *LinkedList ::find(string val, Node *curr)
 {
-    if (curr == NULL) // base case, list is empty
-        return NULL;
-    if (curr->data == val) // curr node has val
-        return curr;
-    else
-        return find(val, curr->next); // recursive call to list starting from next node
+    // curr will look over list. At every iteration, we will check if curr->data is val. If so, we are done. Otherwise, we proceed through the list.
+    while(curr != NULL) //looping over list
+    {
+        if (curr->data == val) // found val, so return curr
+            return curr;
+        curr = curr->next; // otherwise, proceed through list
+    }
+    // if loop terminates, val not found
+    return NULL;
 }
 
 // deleteNode(int val): Delete a Node with data val, if it exists. Otherwise, do nothing.

@@ -42,7 +42,7 @@ Node *LinkedList ::find(string val)
 Node *LinkedList ::find(string val, Node *curr)
 {
     // curr will look over list. At every iteration, we will check if curr->data is val. If so, we are done. Otherwise, we proceed through the list.
-    while(curr != NULL) //looping over list
+    while (curr != NULL) //looping over list
     {
         if (curr->data == val) // found val, so return curr
             return curr;
@@ -123,7 +123,7 @@ string LinkedList ::print(Node *curr)
 {
     if (curr == NULL) // base case, empty list
         return "";    // return empty string
-    return curr->data + " " + to_string(curr->cnt) + " " + print(curr->next);
+    return "data: " + curr->data + " cnt: " + to_string(curr->cnt) + "\n" + print(curr->next);
 }
 
 // Computes the length of the linked list
@@ -157,21 +157,6 @@ void LinkedList ::sortList()
 // Output: None
 void LinkedList ::sortList(Node *curr, Node *prev, Node *next, Node *tail)
 {
-    /*if(curr == NULL || curr->next == NULL){
-        return;
-    }
-    if(curr->next->next == NULL && curr->cnt < curr->next->cnt){
-        Node* temp = curr;
-        curr = curr->next;
-        curr->next = temp;
-        return;
-    }
-    do{
-        prev = curr;
-        curr = curr->next;
-        next = curr->next;
-
-    }while(curr->next != NULL);*/
     if (head == NULL || head->next == NULL)
     {
         return;
@@ -233,7 +218,7 @@ void LinkedList ::sortList(Node *curr, Node *prev, Node *next, Node *tail)
     }
 }
 
-// length(Node *curr): Computes the length of the linked list, starting from curr
+// findNodeRank(Node *curr): Computes the length of the linked list, starting from curr
 // Input: string: the start charcter, int:the nth rank
 // Output: the node we find, if not find, return NULL
 Node *LinkedList ::findNodeRank(int rank)
@@ -249,3 +234,96 @@ Node *LinkedList ::findNodeRank(int rank)
     }
     return tempNode;
 }
+
+// reverse(Node *curr): reverse the linked list
+// Input: None
+// Output: the reverrsed list head node
+void LinkedList ::reverse()
+{
+    return reverse(NULL, head);
+}
+
+// reverse(Node *curr): reverse the linked list
+// Input: prev node and current node
+// Output: the reverrsed list head node
+void LinkedList::reverse(Node *prev, Node *curr)
+{
+    Node *temp;
+    while (curr)
+    {
+        temp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
+    }
+    head = prev;
+    return;
+}
+
+// rotate(Node *curr): rotate the list with given node as start
+// Input: the string node need to be the new beginning node
+// Output: None
+void LinkedList::rotate(string data)
+{
+    Node *curr = head, *prev = NULL;
+    while (curr != NULL)
+    {
+        if(curr->data == data){
+            head=curr;
+            while(curr->next){
+                curr = curr->next;
+            }
+            curr->next = prev;
+            if(prev!=NULL){
+            prev->next = NULL;
+            }
+            return;
+        }
+        prev = curr;
+        curr = curr->next;
+    }
+    return;
+}
+
+// rotate(int n): rotate the list with nth node as start
+// Input: the string node need to be the new beginning node
+// Output: None
+void LinkedList::rotate(int n)
+{
+    if(!n){
+        return;
+    }
+    Node *curr = head,*prev=NULL;
+    for (int k=0;k<n;k++){
+        if(curr==NULL){
+            return;
+        }
+        prev=curr;
+        curr=curr->next;
+    }
+    prev->next=NULL;
+    prev=head;
+    head=curr;
+    while(curr->next){
+        curr = curr->next;
+    }
+    curr->next = prev;
+}
+
+// palindrome(): return the whether the list is palindrome
+// Input: None
+// Output: True or false whether list is palindrome
+bool LinkedList ::palindrome(){
+    return palindrome(head);
+}
+
+
+// palindrome(Node *curr): return the whether the list is palindrome
+// Input: The first node of the list
+// Output: True or false whether list is palindrome
+bool LinkedList ::palindrome(Node *){
+
+}
+
+
+Node deletelast(Node *); // delete the last node that appear

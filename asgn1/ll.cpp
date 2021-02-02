@@ -1,3 +1,12 @@
+/*
+ * @Author: your name
+ * @Date: 2021-01-26 20:58:15
+ * @LastEditTime: 2021-01-26 21:48:22
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /asgn1/ll.cpp
+ */
+
 // Filename: ll.cpp
 //
 // Contains the class LinkedList that represents a linked list. This contains some basic operations, such as insert, delete, find, length
@@ -322,8 +331,10 @@ bool LinkedList ::palindrome(){
 // Input: The first node of the list
 // Output: True or false whether list is palindrome
 bool LinkedList ::palindrome(Node *){
-
+    return true;
 }
 
-
-Node deletelast(Node *); // delete the last node that appear
+// deletelast(Node *curr): return the appearance of the node
+// Input: The first node of the list
+// Output: True or false whether list is palindrome
+Node deletelast(Node *curr); // delete the last node that appear

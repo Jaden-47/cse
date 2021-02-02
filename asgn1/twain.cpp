@@ -44,11 +44,17 @@ int main(int argc, char **argv)
             word_list[first].insert(word);
         }
     }
+    cout<<word_list[23].print()<<endl<<endl;
+
 
     for (int i = 0; i < 26; i++)
     {
         word_list[i].sortList();
     }
+
+    cout<<word_list[23].print()<<endl;
+
+/*
     string number;
     Node *findone;
     while (input >> word, input >> number)
@@ -63,6 +69,8 @@ int main(int argc, char **argv)
             output << findone->data <<" "<< findone->cnt << endl;
         }
     }
+*/
+
     for (int i = 0; i < 26; i++)
     {
         word_list[i].deleteList();

@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
     cout<<word_list[23].print()<<endl;
 
-/*
+
     string number;
     Node *findone;
     while (input >> word, input >> number)
@@ -69,7 +69,6 @@ int main(int argc, char **argv)
             output << findone->data <<" "<< findone->cnt << endl;
         }
     }
-*/
 
     for (int i = 0; i < 26; i++)
     {

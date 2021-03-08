@@ -29,10 +29,9 @@ int main(int argc, char **argv)
     output.open(argv[2]);      // open output file
     movie_list.open(textfile); // open the movie list
 
-    string movie_line;               // to store the next command and operation
-    char *com, *valstr, *movie_name; // for using with strtok, strtol
-    int a=0;
-    Graph graph=Graph();
+    string movie_line, actors_line;                    // to store the next command and operation
+    char *com, *valstr, *movie_name, *actor1, *actor2; // for using with strtok, strtol
+    Graph graph = Graph();
     while (getline(movie_list, movie_line)) // get next line of input, store as repeat
     {
         if (movie_line.length() == 0) // command is empty
@@ -49,17 +48,27 @@ int main(int argc, char **argv)
             v.push_back(s);
             valstr = strtok(NULL, " \t");
         }
-        for (int i = 1; i < (int)v.size()-1; i++)
+        for (int i = 1; i < (int)v.size() - 1; i++)
         {
-            for(int j=i+1;j<(int)v.size();j++){
+            for (int j = i + 1; j < (int)v.size(); j++)
+            {
                 //cout<<"1"<<v[0]<<" a:"<<v[i]<<" b:"<<v[j]<<endl;
-                graph.make_edge(v[i],v[j],v[0]);
+                graph.make_edge(v[i], v[j], v[0]);
             }
         }
-        a++;
-        if(a==5) break;
     }
-    graph.path("Blanche_Bayliss","William_Courtenay");
+    while (getline(input, actors_line))
+    {
+        //cout<<actors_line<<endl;
+        if (actors_line.length() == 0)
+            continue;
+        com = strdup(actors_line.c_str());
+        actor1 = strtok(com, " \t");
+        actor2 = strtok(NULL, " \t");
+        //cout<<"a1: "<<actor1<<" a2: "<<actor2<<endl;
+        //cout<<(graph.actors.find("Blanche_Bayliss") == graph.actors.end())<<endl;
+        output<<graph.path((string)actor1, (string)actor2)<<endl;
+    }
     input.close();
     output.close();
     movie_list.close();

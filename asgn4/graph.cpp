@@ -1,5 +1,5 @@
 #include "graph.hpp"
-#include <queue>
+
 Edge::Edge()
 {
     movie = "";
@@ -14,7 +14,7 @@ Edge::Edge(string actor1, string movie1)
 
 Graph::Graph()
 {
-    unordered_map<Vertex, vector<Edge>> actors;
+    unordered_map<string, vector<Edge>> actors;
 }
 
 void Graph::make_edge(string actor1, string actor2, string movie)
@@ -23,11 +23,13 @@ void Graph::make_edge(string actor1, string actor2, string movie)
     {
         vector<Edge> edges;
         actors.insert(make_pair(actor1, edges));
+        //cout<<"insert: "<<actor1<<endl;
     }
     if (actors.find(actor2) == actors.end()) // if can't find actor1
     {
         vector<Edge> edges;
         actors.insert(make_pair(actor2, edges));
+        //cout<<"insert: "<<actor2<<endl;
     }
     Edge edge1 = Edge(actor2, movie);
     Edge edge2 = Edge(actor1, movie);
@@ -60,34 +62,45 @@ string Graph::print(string actor)
 
 string Graph::path(string actor1, string actor2)
 {
+    if ((actors.find(actor1) == actors.end()) || (actors.find(actor2) == actors.end()))
+        return "Not present";
+    if (actor1 == actor2)
+        return actor1;
     queue<string> vertices;
+    queue<string> path;
+    path.push(actor1);
     vertices.push(actor1);
-    vector<string> visited_actor;
-    visited_actor.push_back(actor1);
-    while (vertices.front().empty())
+    unordered_set<string> visited_actor;
+    visited_actor.insert(actor1);
+    while (!vertices.empty())
     {
-        string top = vertices.front();
+        //cout << "inwhile:" << vertices.front() << endl;
+        string front = vertices.front();
+        string front_path = path.front();
         vertices.pop();
+        path.pop();
+        //cout<<"pop:"<<back<<endl;
 
-        vector<string>::iterator iter_string;
-        for (iter_string = visited_actor.begin(); iter_string != visited_actor.end(); ++iter_string)
-        {
-            if (top==*iter_string){
-                continue;
-            }
-        }
-
-        vector<Edge> v = actors.find(top)->second;
+        vector<Edge> v = actors.find(front)->second;
         vector<Edge>::iterator iter;
         for (iter = v.begin(); iter != v.end(); ++iter)
         {
-            iter->path=top+iter->movie+iter->actor;
-            if(iter->actor==actor2){
-                return;
+            string to_push_path;
+            to_push_path = front_path + " -(" + iter->movie + ")- " + iter->actor;
+            //cout << "push_path:" << to_push_path << endl;
+            if (iter->actor == actor2)
+            {
+                return to_push_path;
             }
-            vertices.push(iter->actor);
-            visited_actor.push_back(iter->actor);
+            if (visited_actor.find(iter->actor) == visited_actor.end())
+            {
+                //cout << "push:" << iter->actor << endl;
+                vertices.push(iter->actor);
+                path.push(to_push_path);
+                visited_actor.insert(iter->actor);
+            }
         }
+        //cout << endl;
     }
-    return "can't find";
+    return "Not present";
 }

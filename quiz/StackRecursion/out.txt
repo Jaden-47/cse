@@ -1,8 +1,0 @@
-abccc
-abbbccc
-abbbc
-aaabccc
-aaabbbccc
-aaabbbc
-aaabc
-abc

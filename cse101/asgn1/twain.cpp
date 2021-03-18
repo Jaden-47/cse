@@ -46,11 +46,12 @@ int main(int argc, char **argv)
     }
     cout<<word_list[23].print()<<endl<<endl;
 
-
+    
     for (int i = 0; i < 26; i++)
     {
         word_list[i].sortList();
     }
+    //word_list[23].sortList();
 
     cout<<word_list[23].print()<<endl;
 

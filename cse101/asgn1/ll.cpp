@@ -158,71 +158,44 @@ int LinkedList ::length(Node *curr)
 // Output: None
 void LinkedList ::sortList()
 {
-    return sortList(head, NULL, NULL, NULL);
+    if (head == nullptr)
+        return;
+    return sortList(head, nullptr, nullptr);
 }
 
 // sortList(Node*): Sort the list as the value of "cnt" in decending rank
 // Input: None
 // Output: None
-void LinkedList ::sortList(Node *curr, Node *prev, Node *next, Node *tail)
+void LinkedList ::sortList(Node *curr, Node *prev, Node *tail)
 {
-    if (head == NULL || head->next == NULL)
+    while (head != tail)
     {
-        return;
-    }
-    if (head->cnt < head->next->cnt)
-    {
-        Node *temp = new Node;
-        temp->cnt = head->cnt;
-        temp->data = head->data;
-        temp->next = head->next->next;
-        delete (head);
-        head = head->next;
-        head->next = temp;
-    }
-    if (head->next->next == NULL)
-    {
-        return;
-    }
-    else
-    {
-        while (head->next != tail)
+        if (curr->next == tail)
         {
-            curr = head;
-            for (prev = curr, curr = prev->next, next = curr->next; next != tail; prev = prev->next, curr = curr->next, next = next->next)
-            {
-
-                if (curr->cnt <= next->cnt)
-                {
-                    if (curr->cnt == next->cnt && curr->data < next->data)
-                    {
-                        goto out1;
-                    }
-                    prev->next = next;
-                    curr->next = next->next;
-                    next->next = curr;
-                    Node *temperary = curr;
-                    curr = next;
-                    next = temperary;
-                }
-            out1:;
-            }
             tail = curr;
-            if (head->cnt <= head->next->cnt)
+            curr = head;
+            prev = nullptr;
+            continue;
+        }
+        Node *next = curr->next;
+        if (curr->cnt < next->cnt || (curr->cnt == next->cnt && curr->data > next->data))
+        {
+            if (prev != nullptr)
             {
-                if (head->cnt == head->next->cnt && head->data < head->next->data)
-                {
-                    goto out2;
-                }
-                Node *temp1 = new Node;
-                temp1->cnt = head->cnt;
-                temp1->data = head->data;
-                temp1->next = head->next->next;
-                delete (head);
-                head = head->next;
-                head->next = temp1;
+                prev->next = next;
             }
-        out2:;
+            else
+            {
+                head = next;
+            }
+            curr->next = next->next;
+            next->next = curr;
+            prev = next;
+        }
+        else
+        {
+            prev = curr;
+            curr = next;
         }
     }
 }
@@ -277,14 +250,17 @@ void LinkedList::rotate(string data)
     Node *curr = head, *prev = NULL;
     while (curr != NULL)
     {
-        if(curr->data == data){
-            head=curr;
-            while(curr->next){
+        if (curr->data == data)
+        {
+            head = curr;
+            while (curr->next)
+            {
                 curr = curr->next;
             }
             curr->next = prev;
-            if(prev!=NULL){
-            prev->next = NULL;
+            if (prev != NULL)
+            {
+                prev->next = NULL;
             }
             return;
         }
@@ -299,21 +275,25 @@ void LinkedList::rotate(string data)
 // Output: None
 void LinkedList::rotate(int n)
 {
-    if(!n){
+    if (!n)
+    {
         return;
     }
-    Node *curr = head,*prev=NULL;
-    for (int k=0;k<n;k++){
-        if(curr==NULL){
+    Node *curr = head, *prev = NULL;
+    for (int k = 0; k < n; k++)
+    {
+        if (curr == NULL)
+        {
             return;
         }
-        prev=curr;
-        curr=curr->next;
+        prev = curr;
+        curr = curr->next;
     }
-    prev->next=NULL;
-    prev=head;
-    head=curr;
-    while(curr->next){
+    prev->next = NULL;
+    prev = head;
+    head = curr;
+    while (curr->next)
+    {
         curr = curr->next;
     }
     curr->next = prev;
@@ -322,15 +302,16 @@ void LinkedList::rotate(int n)
 // palindrome(): return the whether the list is palindrome
 // Input: None
 // Output: True or false whether list is palindrome
-bool LinkedList ::palindrome(){
+bool LinkedList ::palindrome()
+{
     return palindrome(head);
 }
-
 
 // palindrome(Node *curr): return the whether the list is palindrome
 // Input: The first node of the list
 // Output: True or false whether list is palindrome
-bool LinkedList ::palindrome(Node *){
+bool LinkedList ::palindrome(Node *)
+{
     return true;
 }
 

@@ -30,17 +30,21 @@ int main(int argc, char **argv)
         stringstream ss;
         ss << in_line;
         string word;
-        getline(ss, word, ' ');
+        string result;
+        getline(ss, word, ' '); 
         nqueens board = nqueens(atoi(word.c_str()));
         while (getline(ss, word, ' '))
         {
             int x = atoi(word.c_str());
             getline(ss, word, ' ');
             int y = atoi(word.c_str());
-            board.insert(x - 1, y - 1);
+            if(!(board.insert(x - 1, y - 1))){
+                result="No solution";
+                goto print;
+            }
         }
-        string result;
-        if (board.find())
+
+        if (board.find() && board.now_valid())
         {
             result = board.print();
         }
@@ -48,7 +52,7 @@ int main(int argc, char **argv)
         {
             result = "No solution";
         }
-        output << result << endl;
+        print:output << result << endl;
     }
     input.close();
     output.close();

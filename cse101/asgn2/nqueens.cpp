@@ -43,9 +43,17 @@ nqueens::nqueens(int i)
   }
 }
 
-void nqueens::insert(int i, int k)
+bool nqueens::insert(int i, int k)
 {
-  column[i] = k;
+  if (column[i] == -1)
+  {
+    column[i] = k;
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 bool nqueens::is_valid(int i)
@@ -71,6 +79,24 @@ bool nqueens::all_valid()
     if (column[i] == -1 || !(is_valid(i)))
     {
       return false;
+    }
+  }
+  return true;
+}
+
+bool nqueens::now_valid()
+{
+  for (int i = 0; i < columns; i++)
+  {
+    if (column[i] >= 0)
+    {
+      for (int k = i + 1; k < columns; k++)
+      {
+        if (column[i] == column[k] || abs(k - i) == abs(column[k] - column[i]))
+        {
+          return false;
+        }
+      }
     }
   }
   return true;

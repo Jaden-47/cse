@@ -1,0 +1,1 @@
+I, Zhenyue Liu, have read and understood the Spring CSE12 syllabus and Personal Responsibility Document. ID:1781872 CruzID:zliu259 3 April 2020

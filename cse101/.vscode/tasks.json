@@ -7,10 +7,8 @@
             "args": [
                 "-g",
                 "${file}",
-                "${fileDirname}/ll.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
-                "-Wall"
+                "${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

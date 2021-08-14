@@ -1,0 +1,75 @@
+\documentclass[12pt]{article}
+
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+\usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb} 
+\usepackage{mathptmx}
+
+
+% various theorems, numbered by section
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{mydef}[thm]{Definition}
+
+\begin{document}
+
+
+\title{ CSE 102 Spring 2021\\
+	Advanced Homework Assignment 2}
+
+\author{Jaden Liu \\ 
+University of California at Santa Cruz\\
+Santa Cruz, CA 95064 USA }
+
+\maketitle
+
+
+\section{AdvHW2} 
+
+\textbf{5. Consider the recurrence relation: $T(1)=a$ and $T(n)=nT(n-1)+bn$
+	for $n\ge2$. Prove, by induction, that for sufficiently large integer n, there
+	exists two positive real constants $P$ and $Q$ such that $Pn!\le T(n)\le Qn!$.}\\
+\begin{proof}
+	First we assume $a,b>0$. To prove $Pn!\le T(n)\le Qn!$, we can equaivalently prove $T(n)=\Theta(n!)$.\\
+	\begin{enumerate}
+		\item Base step: when $n=1$,\\
+			$T(1)=a$. Thus, we let $P=\frac{a}{2}$, $Q=2a$, then we can easily observe that $P\cdot1!\le T(1)\le Q\cdot1!$.
+		\item Induction step:\\
+			\begin{align*}
+				T(n)&=nT(n-1)+bn\\
+				&=n\cdot((n-1)T(n-2)+b(n-1))+bn\\
+				&=n\cdot((n-1)((n-2)T(n-3)+b(n-2))+b(n-1))+bn\\
+				&\vdots\\
+				&=n!T(1)+b(n+n(n-1)+n(n-1)(n-2)+\cdots+n!)
+			\end{align*}
+	\end{enumerate}
+	Let $f(n)=n!$, we compute the limit $\lim\limits_{n\to\infty}\frac{T(n)}{f(n)}$:
+	\begin{align*}
+		\lim\limits_{n\to\infty}\frac{T(n)}{f(n)}=&\lim\limits_{n\to\infty}\frac{n!T(1)+b(n+n(n-1)+n(n-1)(n-2)+\cdots+n!)}{n!}\\
+		&=T(1)+\lim\limits_{n\to\infty}b(\frac{1}{(n-1)!}+\frac{1}{(n-2)!}+\frac{1}{(n-3)!}+\cdot+1)\\
+		&=T(1)+b\lim\limits_{n\to\infty}(\sum_{i=1}^{n}\frac{1}{i!})\\
+		&=T(1)+b(e-1)\\
+		&=a+b(e-1)
+	\end{align*}
+	Since $0<a+b(e-1)<\infty$, then $T(n)=\Theta(n!)$. Thus, there must exist $P$ and $Q$ such that $Pn!\le T(n)\le Qn!$.
+\end{proof}
+
+
+
+\bigskip
+
+
+\begin{thebibliography}{}
+\end{thebibliography}
+\end{document}

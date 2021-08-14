@@ -1,0 +1,85 @@
+\documentclass[12pt]{article}
+
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+\usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb} 
+\usepackage{mathptmx}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{forest}
+\usepackage{tabularx}  
+
+% various theorems, numbered by section
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{mydef}[thm]{Definition}
+\lstset{
+	basicstyle          =   \sffamily,          
+	keywordstyle        =   \bfseries,          
+	commentstyle        =   \rmfamily\itshape,  
+	stringstyle         =   \ttfamily,  
+	flexiblecolumns,                
+	numbers             =   left,   
+	showspaces          =   false,  
+	numberstyle         =   \fontsize{5}{skip},    
+	showstringspaces    =   false,
+	captionpos          =   t,      
+	frame               =   lrtb,   
+}
+
+\lstdefinestyle{cpp}{
+	language        =   cpp, 
+	basicstyle      =   \fontsize{5}{skip},
+	numberstyle     =   \fontsize{5}{skip},
+	keywordstyle    =   \color{blue},
+	keywordstyle    =   [2] \color{teal},
+	stringstyle     =   \color{magenta},
+	commentstyle    =   \color{red}\ttfamily,
+	breaklines      =   true,   
+	columns         =   fixed,  
+	basewidth       =   0.5em,
+}
+\begin{document}
+
+
+\title{ CSE 102 Spring 2021\\
+	Quiz Reflection 5}
+
+\author{Jaden Liu \\ 
+University of California at Santa Cruz\\
+Santa Cruz, CA 95064 USA }
+
+\maketitle
+
+
+\section{Quiz 5} 
+\begin{proof}[Solution for q2]
+	I read the problem wrong. What we need to compute is the order of the elemenet we get in the table instead of the real value in this table. Thus I compute the whole problem wrong.    \begin{tabular}{rrrr}
+		0     & 1     & 2     & 3 \\
+		1     & 3     & 2     & 1 \\
+		2     & 6     & 5     & 4 \\
+		3     & 9     & 8     & 7 \\
+		4     & 12    & 11    & 10 \\
+		5     & 15    & 14    & 13 \\
+	\end{tabular}\\
+	The value we needed is the right bottom cell 13.\\
+	To get 10 we need the cell 7\&8. It's just top and top left cell in each iteration.
+\end{proof}
+
+\bigskip
+
+
+
+\end{document}

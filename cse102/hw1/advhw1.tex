@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+\usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb} 
+\usepackage{mathptmx}
+
+
+% various theorems, numbered by section
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{mydef}[thm]{Definition}
+
+\begin{document}
+
+
+\title{ CSE 102 Spring 2021\\
+	Advanced Homework Assignment 1}
+
+\author{Jaden Liu \\ 
+University of California at Santa Cruz\\
+Santa Cruz, CA 95064 USA }
+
+\maketitle
+
+
+\section{AdvHW1} 
+
+\textbf{1. Prove that $\binom{2n}{n}=\Theta(\frac{4^n}{\sqrt{n}})$, where $\binom{m}{k}$ denotes the binomial coefficient $\binom{m}{k}=\frac{m!}{k!(m-k)!}$, for $(0\le k\le m)$.}\\
+\begin{proof}
+	By using $Stirling's\ Formula$, we can get:\cite{wiki}
+	\begin{align*}
+		\binom{2n}{n}&=\frac{(2n)!}{n!\cdot n!}\\
+		&=\frac{\sqrt{2\pi 2n}\cdot(\frac{2n}{e})^{2n}}{(\sqrt{2\pi n}\cdot(\frac{n}{e})^n)^2}\\
+		&=\frac{\sqrt{4\pi n}\cdot\frac{4^n\cdot n^{2n}}{e^{2n}}}{(\sqrt{2\pi n}\cdot\frac{n^n}{e^n})^2}\\
+		&=\frac{4^n}{\sqrt{\pi n}}\\
+	\end{align*}
+Therefore, we can observe that:
+\begin{align*}
+	\frac{\sqrt{\pi}}{100}\cdot\frac{4^n}{\sqrt{\pi n}}\le&\frac{4^n}{\sqrt{\pi n}}\le\sqrt{\pi}\cdot\frac{4^n}{\sqrt{\pi n}}\\
+	\frac{1}{100}\cdot\frac{4^n}{\sqrt{n}}&\le\frac{4^n}{\sqrt{\pi n}}\le\frac{4^n}{\sqrt{n}}\\
+	\frac{1}{100}\cdot\frac{4^n}{\sqrt{n}}&\le\binom{2n}{n}\le\frac{4^n}{\sqrt{n}}
+\end{align*}
+Hence, we have $\binom{2n}{n}=\Theta(\frac{4^n}{\sqrt{n}})$.
+\end{proof}
+
+
+
+\bigskip
+
+
+\begin{thebibliography}{wiki}
+	\bibitem{wiki} Wikipidea, https://en.wikipedia.org/wiki/Stirling%27s_approximation
+\end{thebibliography}
+\end{document}

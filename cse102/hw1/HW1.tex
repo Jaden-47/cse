@@ -1,0 +1,265 @@
+\documentclass[12pt]{article}
+
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+\usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb} 
+\usepackage{mathptmx}
+
+
+% various theorems, numbered by section
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{mydef}[thm]{Definition}
+
+\begin{document}
+
+
+\title{ CSE 102 Spring 2021\\
+	Homework Assignment 1}
+
+\author{Jaden Liu \\ 
+University of California at Santa Cruz\\
+Santa Cruz, CA 95064 USA }
+
+\maketitle
+
+
+\section{HW1} 
+
+\textbf{1. (Problem 3.1-1) Let $f(n)$ and $g(n)$ asymptotically positive functions. Prove that $f(n) + g(n) =
+	\Theta(max(f(n), g(n)))$.}\\
+
+\begin{proof}
+	Let $h(n)=max(f(n),g(n))$, so now we need to prove $f(n) + g(n) =\Theta(h(n))$\\
+	Note that $h(n)\le f(n)+g(n)$ and $h(n)\le f(n)+g(n)$. Hence, $f(n) + g(n) =\Omega(h(n))$.\\
+	Note that $f(n)+g(n) \le 2h(n)$ and $f(n)+g(n)\le 2h(n)$. Hence, $f(n) + g(n) =O(h(n))$\\
+	Hence we get $f(n) + g(n) =\Theta(max(f(n), g(n)))$.
+\end{proof}
+\noindent \textbf{2. Prove or disprove: If $f(n)=\Theta(g(n))$, then $f(n)^2 = \Theta(g(n)^2)$.}\\
+
+\begin{proof}
+	The statement is true. $f(n)=\Theta(g(n))$ states that $\exists c_1>0, \exists c_2>0, \exists n_0>0, \forall n\ge n_0$, $0\le c_1g(n)\le f(n)\le c_2g(n)$. For convenience, we can let $c_3=c_1^2, c_4=c_2^2$\\
+	\begin{align*}
+		c_1g(n)\le &f(n) \le c_2g(n)\\
+		(c_1g(n))^2\le &f(n)^2 \le (c_2g(n))^2\\
+		c_1^2g(n)^2\le &f(n)^2 \le c_2^2g(n)^2\\
+		c_3g(n)^2\le &f(n)^2 \le c_4g(n)^2
+	\end{align*}
+We can easily observe that $c_3,c_4>0$. Hence $\exists c_3>0, \exists c_4>0, \exists n_0>0, \forall n\ge n_0$, $0\le c_3g(n)\le f(n)\le c_4g(n)$, and so $f(n)^2=\Theta(g(n)^2)$.
+\end{proof}
+
+\noindent \textbf{3. Prove or disprove: If $f(n)=\Theta(g(n))$, then $2^{f(n)}=\Theta(2^{g(n)})$.
+}
+
+\begin{proof}[Solution] 	
+\cite{tptf}This statement is false. Let $f(n) = 2n$ and $g(n) = n$. Since $0\le g(n)\le f(n)\le 3g(n)$, then $f(n) = \Theta(g(n))$.\\
+However, $2^{f(n)} = 2^{2n} = 4^n$ and $2^{g(n)} = 2^n$. And we can observe that:
+	\begin{align*}
+		\lim\limits_{n\to \infty} \frac{4^n}{2^n}&=	\lim\limits_{n\to \infty} 2^n\\
+		&=\infty
+	\end{align*} 
+This means that $4^n$ increases faster than $2^n$, so we cannot find a constant $c$ satisfy $c2^n\ge4^n$ when $n\to \infty$, and $2^{f(n)}=\omega(2^{g(n)})$. Thus, $2^{f(n)}\ne\Theta(2^{g(n)})$ if $f(n)=\Theta(g(n))$.
+\end{proof}
+\noindent \textbf{4. Let $f(n)$ and $g(n)$ be asymptotically positive functions, and assume that 
+	$\lim\limits_{n\to \infty}g(n) = \infty$. Prove that 
+	if $f(n)$ = $\Theta(g(n))$,then $\ln(f(n))=\Theta(\ln(g(n)))$.}
+\begin{proof}
+	$f(n)=\Theta(g(n))$ states that $\exists c_1>0, \exists c_2>0, \exists n_0>0, \forall n\ge n_0$, $0\le c_1g(n)\le f(n)\le c_2g(n)$. For convenience, we can let $c_3=c_1^2, c_4=c_2^2$\\
+	\begin{align*}
+		c_1g(n)&\le f(n)\le c_2g(n)\\
+		\ln(c_1g(n))&\le \ln(f(n))\le \ln(c_2g(n))\\
+		\ln(c_1)+\ln(g(n))&\le\ln(f(n))\le\ln(c_2)+\ln(g(n))
+	\end{align*}
+	Since $c_1$ and $n_0$ are constants, there must exist a constant $c^{\prime}$ such that:\cite{sb}
+	\begin{align*}
+		c^{\prime}&\ge \frac{\ln c_1}{\ln g(n_0)}+1\\
+		c^{\prime}-1&\ge \frac{\ln c_1}{\ln g(n_0)}\\
+		(c^{\prime}-1)\ln g(n_0)&\ge \ln c_1\\
+		c^{\prime}\ln g(n_0)&\ge \ln c_1+\ln g(n_0)
+	\end{align*}
+	Therefore, we have $\exists c^{\prime},n_0,\forall n>n_0$,
+	\begin{align*}
+		c^{\prime}\ln g(n)\ge \ln c_1+\ln g(n)\ge \ln f(n)
+	\end{align*}
+	so $\ln f(n)=O(\ln g(n))$\\
+	Similarly, there must exist a constant $c''$ such that:
+	\begin{align*}
+		c''\le \frac{\ln c_2}{\ln g(n_0)}+1
+	\end{align*}
+	and do the same thing, we can get $c''\ln g(n_0)\le \ln c_2+\ln g(n_0)$\\
+	Therefore, we have $\exists c^{\prime},n_0,\forall n>n_0$,
+	\begin{align*}
+		c''\ln g(n_0)\le \ln c_2+\ln g(n_0)\le \ln f(n)
+	\end{align*}
+	so $\ln f(n)=\Omega(\ln g(n))$.\\
+	Hence $\ln f(n)=\Theta(\ln g(n))$.
+\end{proof}
+\noindent \textbf{5. (Problem 3.2-8) Show that if $f(n)\ln f(n) = \Theta(n)$, then $f(n)$ = $\Theta(n/\ln n)$. Hint: use the result of the preceding problem.}
+\begin{proof}
+	\cite{DK}Since $f(n)\ln f(n) = \Theta(n)$, we have:
+	\begin{align*}
+		c_1n&\le f(n)\ln f(n)\le c_2n\\
+		\ln(c_1n)&\le \ln(f(n)\ln f(n))\le \ln(c_2n)\\
+		\ln(c_1)+\ln(n)&\le\ln(f(n))+\ln (\ln f(n))\le \ln(c_1)\ln(n)\\
+		\frac{1}{2}\ln(n)&\le\ln(f(n))+\ln (\ln f(n))\le 2\ln(n)\\
+		\end{align*} 
+	Hence, $\ln(f(n))+\ln (\ln f(n)) = \Theta(\ln(n))$.\\
+	Next, we can observe that:
+	\begin{align*}
+		0\le&\ln(f(n))\le f(n)\\
+		0\le&\ln (\ln f(n))\le\ln(f(n))\\
+		\ln(f(n))\le&\ln(f(n))+\ln (\ln f(n))\le2\ln(f(n))
+	\end{align*}
+	Hence, we get $\ln(f(n))+\ln (\ln f(n))=\Theta(\ln(f(n)))$.\\
+	By reflexivity, we get $\ln(f(n))=\Theta(\ln(f(n))+\ln (\ln f(n)))$. Using transitivity, we get $\ln f(n)=\Theta(\ln n)$.
+	\begin{align*}
+		f(n)\ln f(n) &= \Theta(n)\\
+		f(n)\ln f(n) / \ln f(n) &= \Theta(n) / \Theta(\ln n)\\
+		f(n)&=\Theta(n/\ln n)
+	\end{align*}
+\end{proof}
+
+\noindent \textbf{6. Consider the statement: $f(cn) = \Theta(f(n))$.\\
+	a. Determine a function $f(n)$ and a constant $c > 0$ for which the statement is false.\\
+	b. Determine a function $f(n)$ for which the statement is true for all $c > 0$.}
+
+\begin{proof}[Solution of 6.a]
+	Let $f(n)=2^n$, $c=2$, we have $f(2n)=2^{2n}=4^n$, by what have been proved in $problem 3$, $4^n\ne\Theta(2^n)$. This case lead the statement false.
+\end{proof}
+\begin{proof}[Solution of 6.b]
+	Let $f(n)=n$, then $f(cn)=cn$. $\forall c>0$, there must exist $c_1=c-1$ and $c_2=c+1$ that makes $c_1n\le cn\le c_2n$. Hence, $f(cn)=\Theta(f(n))$.
+\end{proof}
+
+\noindent \textbf{7. Determine the asymptotic order of the expression $\sum_{i=1}^{n}a^i$ where $a > 0$ is a constant, i.e. find a simple function $g(n)$ such that the expression is in the class $\Theta g(n)$. (Hint: consider the cases $a=1$, $a>1$, and $0<a<1$ separately.)}
+\begin{proof}
+	Case 1: when $a=1$, we can get:
+	\begin{align*}
+		f(n)&=\sum_{i=1}^{n}a^i\\
+		&=1^1+1^2+\cdots\cdots+1^n\\
+		&=n
+	\end{align*}
+Let $g(n)=n$, we have the limit:
+\begin{align*}
+	\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}&=	\lim\limits_{n\to\infty}\frac{n}{n}\\
+	&=1
+\end{align*}
+$\sum_{i=1}^{n}a^i$=$\Theta(n)$.
+
+Case 2: when $a>1$, we can get:
+	\begin{align*}
+	f(n)&=\sum_{i=1}^{n}a^i\\
+	&=a^1+a^2+\cdots\cdots+a^n\\
+	&=a(\frac{a^n-1}{a-1})\\
+	&=\frac{a^{n+1}-a}{a-1}
+	\end{align*}
+Let $g(n)=a^n$, we have the limit:
+\begin{align*}
+	\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}&=	\lim\limits_{n\to\infty}\frac{\frac{a^{n+1}-a}{a-1}}{a^n}\\
+	&=	\lim\limits_{n\to\infty}\frac{a^{n+1}-a}{a^{n+1}-a^n}\\
+	&=	\lim\limits_{n\to\infty}\frac{(n+1)a^{n}}{(n+1)a^{n}-na^{n-1}}\\
+	&=\cdots\cdots \quad\text{(apply L.Hospital theorem n times)}\\
+	&=	\lim\limits_{n\to\infty}\frac{(n+1)!}{(n+1)!}\\
+	&=1
+\end{align*}
+	Hence, $\sum_{i=1}^{n}a^i = \Theta (a^n)$.
+
+Case 3: when $a<1$, let $a=\frac{1}{b}$, we can get:
+	\begin{align*}
+		f(n)&=\sum_{i=1}^{n}a^i\\
+		&=a^1+a^2+\cdots\cdots+a^n\\
+		&=\frac{1}{b}+\frac{1}{b^2}+\cdots\cdots+\frac{1}{b^n}\\
+		&=\frac{1}{b}(\frac{1-\frac{1}{b^n}}{1-\frac{1}{b}})\\
+		&=\frac{1-\frac{1}{b^n}}{b-1}
+	\end{align*}
+Let $g(n)=1$, we have the limit:
+\begin{align*}
+	\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}&=	\lim\limits_{n\to\infty}\frac{\frac{1-\frac{1}{b^n}}{b-1}}{1}\\
+	&=	\lim\limits_{n\to\infty}\frac{1-\frac{1}{b^n}}{b-1}\\
+	&=	\lim\limits_{n\to\infty}\frac{1-0}{b-1}\\
+	&=\frac{1}{b-1} \quad\text{(which is a constant)}\\ 
+\end{align*}
+Hence, $\sum_{i=1}^{n}a^i = \Theta (1)$.
+\end{proof}
+
+\noindent \textbf{8. Use limits to prove the following:\\
+	a. $n\ln(n)=o(n^2)$\\
+	b. $n^5 2^n=\omega(n^{10})$.\\
+	c. If $P(n)$ is a polynomial of degree $k\ge0$, then $P(n)=\theta(n^k)$. State any assumptions you need to make for the above statement to be true}
+\begin{proof}[Proof of a]
+	\begin{align*}
+		\lim\limits_{n\to\infty}\frac{n\ln (n)}{n^2}&=\lim\limits_{n\to\infty}\frac{\ln n+1}{2n}\\
+		&=\lim\limits_{n\to\infty}\frac{\frac{1}{n}}{2}\\
+		&=0
+	\end{align*}
+	Hence, $n\ln(n)=o(n^2)$.
+\end{proof}
+
+\begin{proof}[Proof of b]
+	\begin{align*}
+		\lim\limits_{n\to\infty}\frac{n^5 2^n}{n^{10}}&=\lim\limits_{n\to\infty}\frac{2^n}{n^5}\\
+		&=\lim\limits_{n\to\infty}\frac{2^n\ln(2)}{5n^4}\\
+		&=\lim\limits_{n\to\infty}\frac{2^n\ln^2(2)}{5\times4n^3}\\
+		&=\cdots\cdots \quad\text{(apply L.Hospital theorem 3 more times)}\\
+		&=\lim\limits_{n\to\infty}\frac{2^n\ln^5(2)}{5!}\\
+		&=\infty
+	\end{align*}
+	Hence, $n^5 2^n=\omega(n^{10})$.
+\end{proof}
+
+\begin{proof}[Solution of c]
+	Let's assume $P(n)=c_1n^k+c_2n^{k-1}+c_3n^{k-2}+\cdots\cdots+c_kn$, with $c_1>0$ and $c_2,c_3,\cdots\cdots,c_k\in\mathbb{R}$.
+	\begin{align*}
+		\lim\limits_{n\to\infty}\frac{P(n)}{n^k}&=\lim\limits_{n\to\infty}\frac{c_1n^k+c_2n^{k-1}+c_3n^{k-2}+\cdots\cdots+c_kn}{n^k}\\
+		&=\lim\limits_{n\to\infty}\frac{kc_1n^{k-1}+c_2(k-1)n^{k-2}+c_3(k-2)n^{k-3}+\cdots\cdots+c_k}{kn^{k-1}}\\
+		&=\cdots\cdots \quad\text{(apply L.Hospital theorem k-1 more times)}\\
+		&=\lim\limits_{n\to\infty}\frac{k!c_1}{k!}\\
+		&=c_1
+	\end{align*}
+	Hence, $P(n)=\theta(n^k)$.
+\end{proof}
+
+\noindent \textbf{9. Determine whether the first function is $o$, $\theta$, or $\omega$	of the second function.\\
+	a. $n^n$ compared to $2^{n\ln n}$\\
+	b. $\sqrt{\ln n}$ compared to $\ln(\ln n)$}
+\begin{proof}[Solution of a]
+	\begin{align*}
+		\lim\limits_{n\to\infty}\frac{n^n}{2^{n\ln n}}&=\lim\limits_{n\to\infty}\frac{n^n(\ln (n)+1)}{\ln(2)n^{\ln(2)n}(\ln(n)+1)}\\
+		&=\lim\limits_{n\to\infty}\frac{1}{\ln(2)n^{\ln(2)}}\\
+		&=0\ \ (since\ \ln(2)>1)
+	\end{align*}
+	Hence, $n^n = o(2^{n\ln n})$
+\end{proof}
+\begin{proof}[Solution of b]
+	\begin{align*}
+		\lim\limits_{n\to\infty}\frac{\sqrt{\ln n}}{\ln(\ln n)}&=\lim\limits_{n\to\infty}\frac{\frac{1}{2n\sqrt{\ln n}}}{\frac{1}{n\ln n}}\\
+		&=\lim\limits_{n\to\infty}\frac{1}{2}\sqrt{\ln n}\\
+		&=\frac{1}{2}\lim\limits_{n\to\infty}\sqrt{\ln n}\\
+		&=\frac{1}{2}\sqrt{\lim\limits_{n\to\infty}\ln n}\\
+		&=\infty
+	\end{align*}
+	Hence, $\sqrt{\ln n} =\omega(\ln(\ln n))$.
+\end{proof}
+
+\bigskip
+
+
+\begin{thebibliography}{tptf}
+	\bibitem{tptf}templatetypedef, https://stackoverflow.com/questions/2820211/if-fn-\%CE\%98gn-is-2fn-\%CE\%982gn
+	\bibitem{prof} Suresh Lodha, AsymptoticGrowthSKL.pdf
+	\bibitem{sb} https://www3.cs.stonybrook.edu/~rob/teaching/cse373-fa15/sol2.pdf
+	\bibitem{DK} https://math.stackexchange.com/questions/179176/show-that-k-ln-k-in-thetan-implies-k-in-thetan-lnn
+\end{thebibliography}
+
+
+\end{document}

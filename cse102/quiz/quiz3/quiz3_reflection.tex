@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+\usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb} 
+\usepackage{mathptmx}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{forest}
+\usepackage{tabularx}  
+
+% various theorems, numbered by section
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{mydef}[thm]{Definition}
+\lstset{
+	basicstyle          =   \sffamily,          
+	keywordstyle        =   \bfseries,          
+	commentstyle        =   \rmfamily\itshape,  
+	stringstyle         =   \ttfamily,  
+	flexiblecolumns,                
+	numbers             =   left,   
+	showspaces          =   false,  
+	numberstyle         =   \fontsize{5}{skip},    
+	showstringspaces    =   false,
+	captionpos          =   t,      
+	frame               =   lrtb,   
+}
+
+\lstdefinestyle{cpp}{
+	language        =   cpp, 
+	basicstyle      =   \fontsize{5}{skip},
+	numberstyle     =   \fontsize{5}{skip},
+	keywordstyle    =   \color{blue},
+	keywordstyle    =   [2] \color{teal},
+	stringstyle     =   \color{magenta},
+	commentstyle    =   \color{red}\ttfamily,
+	breaklines      =   true,   
+	columns         =   fixed,  
+	basewidth       =   0.5em,
+}
+\begin{document}
+
+
+\title{ CSE 102 Spring 2021\\
+	Quiz Reflection 3}
+
+\author{Jaden Liu \\ 
+University of California at Santa Cruz\\
+Santa Cruz, CA 95064 USA }
+
+\maketitle
+
+
+\section{Quiz 3} 
+
+\begin{proof}[Solution for 1]
+	a): "Decimal War" is an attempt to improve asymptotic complexity of a problem by a tiny decimal amout.
+	c): The algorithm may be not practical.
+\end{proof}
+\begin{proof}[Solution for 3]
+	a): 16 blocks
+	b): Since there are $4^3$ multiplication required, $T(n)=64T(n/4)+cn^2$
+	c): We are looking for $M$ such that $\log_4M<\log27=\log_4{49}$, hence M can be 48.
+	I completely misunderstand the whole problem by very start, so I did every step wrong in the following.
+\end{proof}
+\begin{proof}[Solution for 5]
+	a):$24\rightarrow13\rightarrow7\rightarrow4\rightarrow3\rightarrow2$\\
+	Even case: include $n/2+1$ at the next level.\\
+	Odd case: include $\frac{n+1}{2}$ at the next level.\\
+	I thought it was asking me to divide two 24 sizes array, and I only provide 1 subproblem, which is wrong.
+\end{proof}
+\begin{proof}[Solution for 6]
+	I did not provide text description of my sorting algorithm.
+\end{proof}
+\bigskip
+
+
+
+\end{document}
